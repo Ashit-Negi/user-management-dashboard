@@ -29,6 +29,7 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
     }));
   };
 
+  // validation functions
   const validateForm = () => {
     const validationErrors = {};
 

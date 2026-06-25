@@ -28,6 +28,12 @@ const Dashboard = () => {
   });
   const [sortBy, setSortBy] = useState("");
 
+  // Clear error after 3 seconds
+  const clearError = () => {
+    setTimeout(() => {
+      setError("");
+    }, 3000);
+  };
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -36,12 +42,14 @@ const Dashboard = () => {
     setCurrentPage(1);
   }, [searchTerm, filters, sortBy]);
 
+  // Fetch users from API and transform data
   const fetchUsers = async () => {
     try {
       setLoading(true);
 
       const data = await getUsers();
 
+      // transform data to match our user model
       const transformedUsers = data.map((user) => {
         const [firstName, ...rest] = user.name.split(" ");
 
@@ -56,7 +64,8 @@ const Dashboard = () => {
 
       setUsers(transformedUsers);
     } catch (error) {
-      setError("Failed to fetch users.");
+      setError("Unable to load users. Please try again.");
+      clearError();
     } finally {
       setLoading(false);
     }
@@ -74,6 +83,7 @@ const Dashboard = () => {
     );
   });
 
+  // filter users based on the filters state
   const filteredUsers = searchedUsers.filter((user) => {
     return (
       user.firstName.toLowerCase().includes(filters.firstName.toLowerCase()) &&
@@ -83,7 +93,7 @@ const Dashboard = () => {
     );
   });
 
-  //pagination
+  // Pagination and Sorting
   const indexOfLastUser = currentPage * rowsPerPage;
   const indexOfFirstUser = indexOfLastUser - rowsPerPage;
   const sortedUsers = [...filteredUsers];
@@ -135,6 +145,7 @@ const Dashboard = () => {
       ]);
     } catch (error) {
       setError("Failed to add user.");
+      clearError();
     }
   };
 
@@ -164,6 +175,7 @@ const Dashboard = () => {
       handleCloseModal();
     } catch (error) {
       setError("Failed to update user.");
+      clearError();
     }
   };
 
@@ -181,6 +193,7 @@ const Dashboard = () => {
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
     } catch (error) {
       setError("Failed to delete user.");
+      clearError();
     }
   };
 

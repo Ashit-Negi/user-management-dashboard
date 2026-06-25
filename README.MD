@@ -1,34 +1,72 @@
 # User Management Dashboard
 
-- A responsive react-based user mangemnet dashboard built using react vite , taiwindcss and axios
+A responsive User Management Dashboard built using **React**, **Vite**, **Tailwind CSS**, and **Axios**. The project uses the **JSONPlaceholder API** to demonstrate user management features.
 
-## features
+## Features
 
-- view , add ,edit , delete , search ,filter users
-- pagination
-- error handling
-- responsive design
+- View all users
+- Add, Edit and Delete users
+- Search users
+- Filter users by first name, last name, email and department
+- Sort users
+- Pagination (10, 25, 50 and 100 rows)
+- Client-side form validation
+- API error handling
+- Responsive UI
+- Basic unit tests using Vitest
 
-## api
+## Tech Stack
 
-- we used jsonPlaceholder
-- https://jsonplaceholder.typicode.com/users
+- React
+- Vite
+- Tailwind CSS
+- Axios
+- Vitest
+- React Testing Library
 
-## progress
+## API
 
-- api integration completed
-- user listing implemented we make searchbar , pagination , usertable right now
-- dashboard component re-strutured
-- user form modal created
+JSONPlaceholder
+https://jsonplaceholder.typicode.com/users
 
-## features completed
+## Setup
 
-- view all users , add ,edit , delete , search
-- loading , error handling
-- responsive table form modal
-- reusable user form modal
-- search users by first name , last name ,email
-- filter users using popup
-- sort users
-- pagination
-- validation added in user form
+```bash
+npm install
+npm run dev
+```
+
+Run tests
+
+```bash
+npm test
+```
+
+## Project Structure
+
+src
+├── api
+├── components
+├── pages
+├── tests
+├── App.jsx
+└── main.jsx
+
+## Assumptions
+
+- JSONPlaceholder provides only 10 users.
+- POST, PUT and DELETE requests are simulated by the API.
+- User data is updated on the client side after a successful API response.
+
+## Challenges
+
+- Combining search, filter, sorting and pagination together.
+- Reusing the same form component for both Add and Edit operations.
+- Handling the limitations of the JSONPlaceholder API.
+
+## Future Improvements
+
+- Improve UI and mobile responsiveness.
+- Add more unit test coverage.
+- Implement server-side pagination.
+- Connect to a real backend instead of a mock API.
