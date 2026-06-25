@@ -8,3 +8,14 @@
 - pagination
 - error handling
 - responsive design
+
+## api
+
+- we used jsonPlaceholder
+- https://jsonplaceholder.typicode.com/users
+
+## progress
+
+- api integration completed
+- user listing implemented we make searchbar , pagination , usertable right now
+- dashboard component re-strutured
