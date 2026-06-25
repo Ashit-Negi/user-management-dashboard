@@ -44,13 +44,13 @@ npm test
 
 ## Project Structure
 
-src
-├── api
-├── components
-├── pages
-├── tests
-├── App.jsx
-└── main.jsx
+src/
+api
+components
+pages
+tests
+App.jsx
+main.jsx
 
 ## Assumptions
 
