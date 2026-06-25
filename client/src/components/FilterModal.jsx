@@ -35,9 +35,9 @@ function FilterModal({ isOpen, onClose, filters, setFilters }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-5">Filter Users</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl">
+        <h2 className="mb-6 text-2xl font-bold text-slate-800">Filter Users</h2>
 
         <div className="space-y-4">
           <input
@@ -45,7 +45,21 @@ function FilterModal({ isOpen, onClose, filters, setFilters }) {
             placeholder="First Name"
             value={localFilters.firstName}
             onChange={handleChange}
-            className="w-full border rounded p-3"
+            className="
+              w-full
+              rounded-xl
+              border
+              border-slate-300
+              bg-white
+              px-4
+              py-3
+              outline-none
+              transition-all
+              duration-200
+              focus:border-slate-800
+              focus:ring-4
+              focus:ring-slate-200
+            "
           />
 
           <input
@@ -53,7 +67,21 @@ function FilterModal({ isOpen, onClose, filters, setFilters }) {
             placeholder="Last Name"
             value={localFilters.lastName}
             onChange={handleChange}
-            className="w-full border rounded p-3"
+            className="
+              w-full
+              rounded-xl
+              border
+              border-slate-300
+              bg-white
+              px-4
+              py-3
+              outline-none
+              transition-all
+              duration-200
+              focus:border-slate-800
+              focus:ring-4
+              focus:ring-slate-200
+            "
           />
 
           <input
@@ -61,7 +89,21 @@ function FilterModal({ isOpen, onClose, filters, setFilters }) {
             placeholder="Email"
             value={localFilters.email}
             onChange={handleChange}
-            className="w-full border rounded p-3"
+            className="
+              w-full
+              rounded-xl
+              border
+              border-slate-300
+              bg-white
+              px-4
+              py-3
+              outline-none
+              transition-all
+              duration-200
+              focus:border-slate-800
+              focus:ring-4
+              focus:ring-slate-200
+            "
           />
 
           <input
@@ -69,20 +111,66 @@ function FilterModal({ isOpen, onClose, filters, setFilters }) {
             placeholder="Department"
             value={localFilters.department}
             onChange={handleChange}
-            className="w-full border rounded p-3"
+            className="
+              w-full
+              rounded-xl
+              border
+              border-slate-300
+              bg-white
+              px-4
+              py-3
+              outline-none
+              transition-all
+              duration-200
+              focus:border-slate-800
+              focus:ring-4
+              focus:ring-slate-200
+            "
           />
         </div>
 
-        <div className="flex justify-end gap-3 mt-6">
-          <button onClick={handleReset} className="border px-4 py-2 rounded">
+        <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <button
+            onClick={handleReset}
+            className="
+              w-full
+              rounded-xl
+              border
+              border-slate-300
+              bg-white
+              px-5
+              py-3
+              font-medium
+              text-slate-700
+              transition-all
+              duration-200
+              hover:bg-slate-100
+              sm:w-auto
+            "
+          >
             Reset
           </button>
 
           <button
             onClick={handleApply}
-            className="bg-blue-600 text-white px-4 py-2 rounded"
+            className="
+              w-full
+              rounded-xl
+              bg-slate-900
+              px-5
+              py-3
+              font-medium
+              text-white
+              shadow
+              transition-all
+              duration-200
+              hover:-translate-y-0.5
+              hover:bg-black
+              hover:shadow-xl
+              sm:w-auto
+            "
           >
-            Apply
+            Apply Filters
           </button>
         </div>
       </div>

@@ -9,18 +9,38 @@ function SearchBar({
   setSortBy,
 }) {
   return (
-    <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
+    <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      {/* Search */}
       <input
         type="text"
-        placeholder="Search users..."
+        placeholder="🔍 Search users..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full md:w-96 border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+        className="
+          w-full rounded-xl border border-slate-300 bg-white px-4 py-3 shadow-sm outline-none transition-all duration-200  focus:border-slate-800 focus:ring-4 focus:ring-slate-200 lg:max-w-md "
       />
+
+      {/* Sort */}
       <select
         value={sortBy}
         onChange={(e) => setSortBy(e.target.value)}
-        className="border rounded-lg px-3 py-2"
+        className="
+          w-full
+          rounded-xl
+          border
+          border-slate-300
+          bg-white
+          px-4
+          py-3
+          shadow-sm
+          outline-none
+          transition-all
+          duration-200
+          focus:border-slate-800
+          focus:ring-4
+          focus:ring-slate-200
+          lg:w-72
+        "
       >
         <option value="">Sort By</option>
         <option value="firstNameAsc">First Name (A-Z)</option>
@@ -30,17 +50,51 @@ function SearchBar({
         <option value="emailAsc">Email (A-Z)</option>
         <option value="departmentAsc">Department (A-Z)</option>
       </select>
-      <div className="flex gap-3">
+
+      {/* Buttons */}
+      <div className="flex flex-col gap-3 sm:flex-row">
         <button
-          className="px-4 py-2 border rounded-lg hover:bg-gray-100"
           onClick={onFilter}
+          className="
+            w-full
+            rounded-xl
+            border
+            border-slate-300
+            bg-white
+            px-5
+            py-3
+            font-medium
+            text-slate-700
+            shadow-sm
+            transition-all
+            duration-200
+            hover:-translate-y-0.5
+            hover:bg-slate-100
+            hover:shadow-md
+            sm:w-auto
+          "
         >
           Filter
         </button>
 
         <button
           onClick={onAddUser}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="
+            w-full
+            rounded-xl
+            bg-slate-900
+            px-5
+            py-3
+            font-medium
+            text-white
+            shadow
+            transition-all
+            duration-200
+            hover:-translate-y-0.5
+            hover:bg-black
+            hover:shadow-xl
+            sm:w-auto
+          "
         >
           + Add User
         </button>

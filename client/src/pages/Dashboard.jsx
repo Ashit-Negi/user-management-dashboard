@@ -220,48 +220,63 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">User Management Dashboard</h1>
+    <div className="min-h-screen bg-slate-100 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="mb-8 rounded-2xl bg-white shadow-lg border border-slate-200 p-6">
+          <h1 className="text-3xl font-bold text-slate-800">
+            User Management Dashboard
+          </h1>
 
-      <SearchBar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onAddUser={handleOpenAddModal}
-        onFilter={() => setIsFilterOpen(true)}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-      />
+          <p className="mt-2 text-slate-500">
+            Manage users with search, filter, sorting and pagination.
+          </p>
+        </div>
 
-      <UserTable
-        users={paginatedUsers}
-        onEdit={handleEditClick}
-        onDelete={handleDeleteUser}
-      />
+        <div className="rounded-2xl bg-white shadow-lg border border-slate-200 p-5 sm:p-6">
+          <SearchBar
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            onAddUser={handleOpenAddModal}
+            onFilter={() => setIsFilterOpen(true)}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+          />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        rowsPerPage={rowsPerPage}
-        setRowsPerPage={setRowsPerPage}
-        setCurrentPage={setCurrentPage}
-      />
+          <div className="mt-6">
+            <UserTable
+              users={paginatedUsers}
+              onEdit={handleEditClick}
+              onDelete={handleDeleteUser}
+            />
+          </div>
 
-      <FilterModal
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
-        filters={filters}
-        setFilters={setFilters}
-      />
+          <div className="mt-6">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              rowsPerPage={rowsPerPage}
+              setRowsPerPage={setRowsPerPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </div>
 
-      <UserFormModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onSubmit={isEditMode ? handleUpdateUser : handleAddUser}
-        initialData={selectedUser}
-        title={isEditMode ? "Edit User" : "Add User"}
-      />
+        <FilterModal
+          isOpen={isFilterOpen}
+          onClose={() => setIsFilterOpen(false)}
+          filters={filters}
+          setFilters={setFilters}
+        />
+
+        <UserFormModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onSubmit={isEditMode ? handleUpdateUser : handleAddUser}
+          initialData={selectedUser}
+          title={isEditMode ? "Edit User" : "Add User"}
+        />
+      </div>
     </div>
   );
 };
-
 export default Dashboard;

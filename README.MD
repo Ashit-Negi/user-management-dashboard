@@ -66,7 +66,6 @@ src
 
 ## Future Improvements
 
-- Improve UI and mobile responsiveness.
 - Add more unit test coverage.
 - Implement server-side pagination.
 - Connect to a real backend instead of a mock API.
