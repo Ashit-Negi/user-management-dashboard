@@ -4,13 +4,13 @@ import { getUsers } from "../api/userApi";
 import SearchBar from "../components/SearchBar";
 import UserTable from "../components/UserTable";
 import Pagination from "../components/Pagination";
-
+import UserFormModal from "../components/UserFormModal";
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -52,6 +52,10 @@ const Dashboard = () => {
     );
   });
 
+  const handleAddUser = (newUser) => {
+  console.log("New User:", newUser);
+};
+
   if (loading) {
     return <h2 className="text-center mt-10">Loading...</h2>;
   }
@@ -64,11 +68,20 @@ const Dashboard = () => {
     <div className="max-w-7xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">User Management Dashboard</h1>
 
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} 
+      onAddUser={() => setIsModalOpen(true)} />
 
       <UserTable users={filteredUsers} />
 
       <Pagination />
+
+      <UserFormModal
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  onSubmit={handleAddUser}
+  initialData={null}
+  title="Add User"
+/>
     </div>
   );
 };

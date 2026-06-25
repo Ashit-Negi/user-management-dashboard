@@ -1,6 +1,6 @@
 import React from "react";
 
-function SearchBar({ searchTerm, setSearchTerm }) {
+function SearchBar({ searchTerm, setSearchTerm, onAddUser }) {
   return (
     <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
       <input
@@ -16,7 +16,10 @@ function SearchBar({ searchTerm, setSearchTerm }) {
           Filter
         </button>
 
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          onClick={onAddUser}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
           + Add User
         </button>
       </div>
