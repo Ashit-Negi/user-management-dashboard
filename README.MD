@@ -31,3 +31,4 @@
 - filter users using popup
 - sort users
 - pagination
+- validation added in user form

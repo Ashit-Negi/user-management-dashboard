@@ -7,6 +7,7 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
     email: "",
     department: "",
   });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (initialData) {
@@ -28,17 +29,52 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
     }));
   };
 
+  const validateForm = () => {
+    const validationErrors = {};
+
+    if (!formData.firstName.trim()) {
+      validationErrors.firstName = "First name is required";
+    } else if (formData.firstName.trim().length < 2) {
+      validationErrors.firstName = "First name must be at least 2 characters";
+    }
+
+    if (!formData.lastName.trim()) {
+      validationErrors.lastName = "Last name is required";
+    } else if (formData.lastName.trim().length < 2) {
+      validationErrors.lastName = "Last name must be at least 2 characters";
+    }
+
+    if (!formData.email.trim()) {
+      validationErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      validationErrors.email = "Please enter a valid email";
+    }
+
+    if (!formData.department.trim()) {
+      validationErrors.department = "Department is required";
+    }
+
+    setErrors(validationErrors);
+
+    return Object.keys(validationErrors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onSubmit(formData);
+    if (!validateForm()) {
+      return;
+    }
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      department: "",
+    onSubmit({
+      ...formData,
+      firstName: formData.firstName.trim(),
+      lastName: formData.lastName.trim(),
+      email: formData.email.trim(),
+      department: formData.department.trim(),
     });
+
+    setErrors({});
 
     onClose();
   };
@@ -58,8 +94,11 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
             value={formData.firstName}
             onChange={handleChange}
             className="w-full border rounded-lg p-3"
-            required
           />
+
+          {errors.firstName && (
+            <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
+          )}
 
           <input
             type="text"
@@ -68,9 +107,11 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
             value={formData.lastName}
             onChange={handleChange}
             className="w-full border rounded-lg p-3"
-            required
           />
 
+          {errors.lastName && (
+            <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
+          )}
           <input
             type="email"
             name="email"
@@ -78,9 +119,10 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
             value={formData.email}
             onChange={handleChange}
             className="w-full border rounded-lg p-3"
-            required
           />
-
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+          )}
           <input
             type="text"
             name="department"
@@ -88,8 +130,10 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
             value={formData.department}
             onChange={handleChange}
             className="w-full border rounded-lg p-3"
-            required
           />
+          {errors.department && (
+            <p className="text-red-500 text-sm mt-1">{errors.department}</p>
+          )}
 
           <div className="flex justify-end gap-3 pt-2">
             <button
