@@ -19,7 +19,7 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
         department: "",
       });
     }
-  }, [initialData]);
+  }, [initialData, isOpen]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -32,6 +32,13 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
     e.preventDefault();
 
     onSubmit(formData);
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      department: "",
+    });
 
     onClose();
   };
@@ -88,14 +95,14 @@ function UserFormModal({ isOpen, onClose, onSubmit, initialData, title }) {
             <button
               type="button"
               onClick={onClose}
-              className="border px-5 py-2 rounded-lg"
+              className="border px-5 py-2 rounded-lg hover:bg-gray-100"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="bg-blue-600 text-white px-5 py-2 rounded-lg"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
             >
               Save
             </button>

@@ -20,3 +20,10 @@
 - user listing implemented we make searchbar , pagination , usertable right now
 - dashboard component re-strutured
 - user form modal created
+
+## features completed
+
+- view all users , add ,edit , delete , search
+- loading , error handling
+- responsive table form modal
+- reusable user form modal

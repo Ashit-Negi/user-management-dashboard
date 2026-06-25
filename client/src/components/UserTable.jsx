@@ -1,6 +1,6 @@
 import React from "react";
 
-function UserTable({ users }) {
+function UserTable({ users, onEdit, onDelete }) {
   return (
     <div className="bg-white rounded-lg shadow overflow-x-auto">
       <table className="w-full border-collapse">
@@ -30,11 +30,17 @@ function UserTable({ users }) {
 
                 <td className="p-3">
                   <div className="flex justify-center gap-2">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
+                    <button
+                      onClick={() => onEdit(user)}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                    >
                       Edit
                     </button>
 
-                    <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                    <button
+                      onClick={() => onDelete(user.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                    >
                       Delete
                     </button>
                   </div>
