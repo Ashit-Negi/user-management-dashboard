@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar";
 import UserTable from "../components/UserTable";
 import Pagination from "../components/Pagination";
 import UserFormModal from "../components/UserFormModal";
-
+import FilterModal from "../components/FilterModal";
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,10 +16,25 @@ const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  const [filters, setFilters] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    department: "",
+  });
+  const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filters, sortBy]);
 
   const fetchUsers = async () => {
     try {
@@ -48,7 +63,7 @@ const Dashboard = () => {
   };
 
   // Search
-  const filteredUsers = users.filter((user) => {
+  const searchedUsers = users.filter((user) => {
     const value = searchTerm.toLowerCase();
 
     return (
@@ -58,6 +73,53 @@ const Dashboard = () => {
       user.department.toLowerCase().includes(value)
     );
   });
+
+  const filteredUsers = searchedUsers.filter((user) => {
+    return (
+      user.firstName.toLowerCase().includes(filters.firstName.toLowerCase()) &&
+      user.lastName.toLowerCase().includes(filters.lastName.toLowerCase()) &&
+      user.email.toLowerCase().includes(filters.email.toLowerCase()) &&
+      user.department.toLowerCase().includes(filters.department.toLowerCase())
+    );
+  });
+
+  //pagination
+  const indexOfLastUser = currentPage * rowsPerPage;
+  const indexOfFirstUser = indexOfLastUser - rowsPerPage;
+  const sortedUsers = [...filteredUsers];
+
+  switch (sortBy) {
+    case "firstNameAsc":
+      sortedUsers.sort((a, b) => a.firstName.localeCompare(b.firstName));
+      break;
+
+    case "firstNameDesc":
+      sortedUsers.sort((a, b) => b.firstName.localeCompare(a.firstName));
+      break;
+
+    case "lastNameAsc":
+      sortedUsers.sort((a, b) => a.lastName.localeCompare(b.lastName));
+      break;
+
+    case "lastNameDesc":
+      sortedUsers.sort((a, b) => b.lastName.localeCompare(a.lastName));
+      break;
+
+    case "emailAsc":
+      sortedUsers.sort((a, b) => a.email.localeCompare(b.email));
+      break;
+
+    case "departmentAsc":
+      sortedUsers.sort((a, b) => a.department.localeCompare(b.department));
+      break;
+
+    default:
+      break;
+  }
+
+  const paginatedUsers = sortedUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
 
   // ADD USER
   const handleAddUser = async (newUser) => {
@@ -152,15 +214,31 @@ const Dashboard = () => {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         onAddUser={handleOpenAddModal}
+        onFilter={() => setIsFilterOpen(true)}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
       />
 
       <UserTable
-        users={filteredUsers}
+        users={paginatedUsers}
         onEdit={handleEditClick}
         onDelete={handleDeleteUser}
       />
 
-      <Pagination />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
+        setCurrentPage={setCurrentPage}
+      />
+
+      <FilterModal
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        filters={filters}
+        setFilters={setFilters}
+      />
 
       <UserFormModal
         isOpen={isModalOpen}

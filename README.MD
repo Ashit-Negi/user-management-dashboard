@@ -27,3 +27,7 @@
 - loading , error handling
 - responsive table form modal
 - reusable user form modal
+- search users by first name , last name ,email
+- filter users using popup
+- sort users
+- pagination
