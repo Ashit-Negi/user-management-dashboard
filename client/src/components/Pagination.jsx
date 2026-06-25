@@ -2,12 +2,14 @@ import React from "react";
 
 function Pagination() {
   return (
-    <div className="flex justify-end mt-5">
-      <select className="border rounded-lg px-3 py-2">
-        <option>10</option>
-        <option>25</option>
-        <option>50</option>
-        <option>100</option>
+    <div className="flex justify-between items-center mt-6">
+      <p className="text-gray-600">Rows per page</p>
+
+      <select className="border border-gray-300 rounded-lg px-3 py-2">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
       </select>
     </div>
   );

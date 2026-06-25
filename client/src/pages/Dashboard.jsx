@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../api/userApi";
 
+import SearchBar from "../components/SearchBar";
+import UserTable from "../components/UserTable";
+import Pagination from "../components/Pagination";
+
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const fetchUsers = async () => {
     try {
@@ -25,16 +34,23 @@ const Dashboard = () => {
       });
 
       setUsers(transformedUsers);
-    } catch (err) {
+    } catch (error) {
       setError("Failed to fetch users");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const filteredUsers = users.filter((user) => {
+    const value = searchTerm.toLowerCase();
+
+    return (
+      user.firstName.toLowerCase().includes(value) ||
+      user.lastName.toLowerCase().includes(value) ||
+      user.email.toLowerCase().includes(value) ||
+      user.department.toLowerCase().includes(value)
+    );
+  });
 
   if (loading) {
     return <h2 className="text-center mt-10">Loading...</h2>;
@@ -48,31 +64,11 @@ const Dashboard = () => {
     <div className="max-w-7xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">User Management Dashboard</h1>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-slate-100">
-            <tr>
-              <th className="p-3 text-left">ID</th>
-              <th className="p-3 text-left">First Name</th>
-              <th className="p-3 text-left">Last Name</th>
-              <th className="p-3 text-left">Email</th>
-              <th className="p-3 text-left">Department</th>
-            </tr>
-          </thead>
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.id} className="border-b">
-                <td className="p-3">{user.id}</td>
-                <td className="p-3">{user.firstName}</td>
-                <td className="p-3">{user.lastName}</td>
-                <td className="p-3">{user.email}</td>
-                <td className="p-3">{user.department}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <UserTable users={filteredUsers} />
+
+      <Pagination />
     </div>
   );
 };
